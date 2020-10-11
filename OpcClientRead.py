@@ -6,7 +6,7 @@ client = Client(OpcUaPlcT1)
 print('Connect to: {}'.format(OpcUaPlcT1))
 client.connect()
 if True:
-    BoolTemp = client.get_node('ns=3; s="opcua_DB"."bool"')
+    BoolTemp = client.get_node('ns=3; s="opcua_DB"."opc.button"')
     BoolTempVal = BoolTemp.get_value()
     print(BoolTempVal)
     if BoolTempVal :
@@ -18,7 +18,7 @@ if True:
         # var2.get_data_value() # get value of node as a DataValue object
         temp2=var2.get_value() # get value of node as a python builtin
         print(temp2)
-        var3 = client.get_node('ns=3; s="opcua_DB"."real_3"')
+        var3 = client.get_node('ns=3; s="NewDb"."NewVar"')
         # var3.get_data_value() # get value of node as a DataValue object
         temp3=var3.get_value() # get value of node as a python builtin
         print(temp3)

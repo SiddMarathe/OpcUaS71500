@@ -81,13 +81,17 @@ ex_jalvis.write_excel_header(ex_headers)
 #display
 def csv_file():
     try:
-        OpcUaPlcT1="opc.tcp://192.168.0.1:4840"
-        client = Client(OpcUaPlcT1)
+        from opcua import Client
+        OpcPort = "opc.tcp://192.168.0.1:4840"
+        client = Client(OpcPort)
         client.connect()
+        Object = client.get_objects_node()
+        Plc = Object.get_children()[2]
+        GlobalDB = Plc.get_children()[1]
+        OpcDB = GlobalDB.get_children()[3]
         while True:
-            temp = client.get_node('ns=3; s="opcua_DB"."opc.button"')
-            var = client.get_node('ns=3; s="opcua_DB"."opc.button"')
-            trigger = var.get_value()
+            LogButton = client.get_node('ns=3; s="opcua_DB"."CsvLogButton"')
+            trigger = LogButton.get_value()
             if trigger : 
                 Res1=client.get_node('ns=3; s="opcua_DB"."real"')
                 Res1Val=Res1.get_value()
